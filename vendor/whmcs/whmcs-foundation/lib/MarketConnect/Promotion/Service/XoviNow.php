@@ -1,0 +1,37 @@
+<?php
+/*
+ * @ https://EasyToYou.eu - IonCube v11 Decoder Online
+ * @ PHP 7.2 & 7.3
+ * @ Decoder version: 1.1.6
+ * @ Release: 10/08/2022
+ */
+
+// Decoded file for php version 72.
+namespace WHMCS\MarketConnect\Promotion\Service;
+
+class XoviNow extends AbstractService
+{
+    protected $name = \WHMCS\MarketConnect\MarketConnect::SERVICE_XOVINOW;
+    protected $friendlyName = "XOVI NOW";
+    protected $primaryIcon = "assets/img/marketconnect/xovinow/logo-sml.png";
+    protected $promoteToNewClients = true;
+    protected $productKeys;
+    protected $qualifyingProductTypes;
+    protected $loginPanel = ["label" => "marketConnect.xoviNow.manage", "icon" => "fa-search", "image" => "assets/img/marketconnect/xovinow/logo-sml.png", "color" => "brand-xovinow-blue", "dropdownReplacementText" => ""];
+    protected $recommendedUpgradePaths;
+    protected $upsells;
+    protected $features = ["Projects", "Full-Access Accounts", "Read-Only Accounts", "Competitor Benchmarking", "Competitors per project", "Keyword Research", "Rank Tracker", "Keyword crawls", "Keyword check", "Site Audit", "Pages to crawl", "SEO Advisor", "SEO Text Optimizer"];
+    protected $planFeatures;
+    protected $defaultPromotionalContent;
+    protected $promotionalContent;
+    protected $upsellPromoContent;
+    const XOVINOW_STARTER = NULL;
+    const XOVINOW_PROFESSIONAL = NULL;
+    public function getLoginPanel()
+    {
+        $services = (new \WHMCS\MarketConnect\Promotion\Helper\Client(\Auth::client()->id))->getServices($this->name);
+        return (new \WHMCS\MarketConnect\Promotion\LoginPanel())->setName(ucfirst($this->name) . "Login")->setLabel(\Lang::trans($this->loginPanel["label"]))->setIcon($this->loginPanel["icon"])->setColor($this->loginPanel["color"])->setImage($this->loginPanel["image"])->setRequiresDomain($this->requiresDomain())->setDropdownReplacementText(\Lang::trans($this->loginPanel["dropdownReplacementText"]))->setPoweredBy("WebPros")->setServices($services);
+    }
+}
+
+?>

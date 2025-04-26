@@ -1,0 +1,20 @@
+<?php
+/*
+ * @ https://EasyToYou.eu - IonCube v11 Decoder Online
+ * @ PHP 7.2 & 7.3
+ * @ Decoder version: 1.1.6
+ * @ Release: 10/08/2022
+ */
+
+// Decoded file for php version 72.
+namespace WHMCS\Updater\Version;
+
+class Version8112release1 extends IncrementalVersion
+{
+    public function getFeatureHighlights() : array
+    {
+        return [(new \WHMCS\Notification\FeatureHighlight("PayPal Payments Auto-Migration", "Get the full benefits when you activate PayPal Payments.", NULL, "modal-paypal.png", "WHMCS now offers a seamless automated transition from deprecated PayPal® modules for existing PayPal customers.", "https://go.whmcs.com/2461/paypal-transition", "Learn More"))->hideIconBackgroundImage(), (new \WHMCS\Notification\FeatureHighlight("Ticket Closure Controls", "Stop clients and visitors from closing their support tickets.", NULL, "modal-ticket.png", "You can restrict clients and visitors from closing individual support tickets or tickets in a support department. Only admins will be able to close them.", "https://go.whmcs.com/2465/disable-closure", "Learn More"))->hideIconBackgroundImage(), (new \WHMCS\Notification\FeatureHighlight("Localization Improvements", "Enjoy an improved experience in our supported locales.", NULL, "modal-localisation.png", "We have significantly improved the availability and quality of translations in all of WHMCS’s supported languages.", "https://go.whmcs.com/1969/localization", "Learn More"))->hideIconBackgroundImage(), (new \WHMCS\Notification\FeatureHighlight("Improved Invoice Experience", "View real-time total updates with faster reload speeds.", NULL, "modal-invoice.png", "We have improved the experience when working with invoices in the Admin Area. These changes include reducing page reload times and introducing real-time updates for invoice totals.", "https://go.whmcs.com/2469/invoice-management", "Learn More"))->hideIconBackgroundImage(), (new \WHMCS\Notification\FeatureHighlight("New Captcha Options", "WHMCS now supports reCAPTCHA v3 and hCaptcha®.", NULL, "modal-captcha.png", "Switch to one of these new captcha options for enhanced protection from automated bots.", "https://go.whmcs.com/2473/enabling-captchas", "Learn More"))->hideIconBackgroundImage(), (new \WHMCS\Notification\FeatureHighlight("Upgrade to PHP 8.2", "WHMCS now supports PHP 7.2, 7.3, 7.4, 8.1, and 8.2.", NULL, "modal-php.png", "After you upgrade to WHMCS 8.11, you can upgrade to start using PHP 8.2 and ionCube® Loader 13.0.2.", "https://go.whmcs.com/1697/php-upgrades", "Learn More"))->hideIconBackgroundImage()];
+    }
+}
+
+?>

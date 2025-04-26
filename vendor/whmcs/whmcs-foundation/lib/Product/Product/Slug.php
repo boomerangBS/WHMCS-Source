@@ -1,0 +1,63 @@
+<?php
+/*
+ * @ https://EasyToYou.eu - IonCube v11 Decoder Online
+ * @ PHP 7.2 & 7.3
+ * @ Decoder version: 1.1.6
+ * @ Release: 10/08/2022
+ */
+
+// Decoded file for php version 72.
+namespace WHMCS\Product\Product;
+
+class Slug extends \WHMCS\Model\AbstractModel
+{
+    protected $table = "tblproducts_slugs";
+    protected $columnMap = ["productId" => "product_id", "groupId" => "group_id", "groupSlug" => "group_slug", "createdAt" => "created_at", "updatedAt" => "updated_at"];
+    protected $booleans = ["active"];
+    protected $fillable = ["product_id", "group_id", "group_slug", "slug", "active"];
+    public static function boot()
+    {
+        parent::boot();
+        static::addGlobalScope("order", function (\Illuminate\Database\Eloquent\Builder $builder) {
+            $builder->orderBy("active", "desc")->orderBy("product_id")->orderBy("group_id");
+        });
+        static::deleted(function (Slug $slug) {
+            $slug->tracking()->delete();
+        });
+    }
+    public function createTable($drop = false)
+    {
+        $schemaBuilder = \WHMCS\Database\Capsule::schema();
+        if($drop) {
+            $schemaBuilder->dropIfExists($this->getTable());
+        }
+        if(!$schemaBuilder->hasTable($this->getTable())) {
+            $schemaBuilder->create($this->getTable(), function ($table) {
+                $table->increments("id");
+                $table->unsignedInteger("product_id");
+                $table->unsignedInteger("group_id");
+                $table->string("group_slug")->default("");
+                $table->string("slug")->default("");
+                $table->unsignedTinyInteger("active")->default(0);
+                $table->unsignedInteger("clicks")->default(0);
+                $table->timestamps();
+                $table->index(["product_id"], "tblproducts_slugs_product_id_index");
+                $table->index(["group_id"], "tblproducts_slugs_group_id_index");
+            });
+        }
+    }
+    public function product() : \Illuminate\Database\Eloquent\Relations\Relation
+    {
+        return $this->belongsTo("WHMCS\\Product\\Product", "product_id", "id", "product");
+    }
+    public function group() : \Illuminate\Database\Eloquent\Relations\Relation
+    {
+        return $this->belongsTo("WHMCS\\Product\\Group", "group_id", "id", "group");
+    }
+    public function tracking() : \Illuminate\Database\Eloquent\Relations\Relation
+    {
+        return $this->hasMany("WHMCS\\Product\\Product\\SlugTracking");
+    }
+}
+
+?>

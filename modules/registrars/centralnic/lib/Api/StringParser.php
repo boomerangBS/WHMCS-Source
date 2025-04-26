@@ -1,0 +1,82 @@
+<?php
+/*
+ * @ https://EasyToYou.eu - IonCube v11 Decoder Online
+ * @ PHP 7.2 & 7.3
+ * @ Decoder version: 1.1.6
+ * @ Release: 10/08/2022
+ */
+
+// Decoded file for php version 72.
+namespace WHMCS\Module\Registrar\CentralNic\Api;
+
+class StringParser implements ParserInterface
+{
+    public function buildPayload($params) : array
+    {
+        $str = "";
+        foreach ($params as $key => $value) {
+            $str .= $key . "=" . $value . "\n";
+        }
+        return $str;
+    }
+    public function parseResponse($response) : array
+    {
+        $result = [];
+        $tmp = preg_replace("/\r\n/", "\n", $response);
+        if(is_null($tmp)) {
+            $tmp = $response;
+        }
+        $rlist = explode("\n", $tmp);
+        foreach ($rlist as $item) {
+            if(preg_match("/^([^\\=]*[^\\t\\= ])[\\t ]*=[\\t ]*(.*)\$/", $item, $m)) {
+                $attr = trim($m[1]);
+                $value = rtrim($m[2]);
+                if(preg_match("/^property\\[([^\\]]*)\\]/i", $attr, $m)) {
+                    if(!array_key_exists("PROPERTY", $result)) {
+                        $result["PROPERTY"] = [];
+                    }
+                    $prop = strtoupper($m[1]);
+                    $tmp = preg_replace("/\\s/", "", $prop);
+                    if(!is_null($tmp)) {
+                        $prop = $tmp;
+                    }
+                    if(array_key_exists($prop, $result["PROPERTY"])) {
+                        $result["PROPERTY"][$prop][] = $value;
+                    } else {
+                        $result["PROPERTY"][$prop] = [$value];
+                    }
+                } else {
+                    $result[strtoupper($attr)] = $value;
+                }
+            }
+        }
+        return $result;
+    }
+    public function getResponseDataValue(string $key, array $data)
+    {
+        if(empty($data[$key])) {
+            return "";
+        }
+        if(is_array($data[$key])) {
+            if(1 < count($data[$key])) {
+                return $data[$key];
+            }
+            return $data[$key][0];
+        }
+        return $data[$key];
+    }
+    public function getResponseCode($response) : int
+    {
+        return (int) ($response["code"] ?? 0);
+    }
+    public function getResponseDescription($response) : array
+    {
+        return (string) ($response["description"] ?? "");
+    }
+    public function getResponseData($response) : array
+    {
+        return (array) ($response["property"] ?? []);
+    }
+}
+
+?>

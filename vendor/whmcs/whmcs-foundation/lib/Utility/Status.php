@@ -1,0 +1,50 @@
+<?php
+/*
+ * @ https://EasyToYou.eu - IonCube v11 Decoder Online
+ * @ PHP 7.2 & 7.3
+ * @ Decoder version: 1.1.6
+ * @ Release: 10/08/2022
+ */
+
+namespace WHMCS\Utility;
+
+// Decoded file for php version 72.
+class Status
+{
+    const PENDING = "Pending";
+    const PENDING_REGISTRATION = "Pending Registration";
+    const PENDING_TRANSFER = "Pending Transfer";
+    const ACTIVE = "Active";
+    const INACTIVE = "Inactive";
+    const CLOSED = "Closed";
+    const COMPLETED = "Completed";
+    const SUSPENDED = "Suspended";
+    const TERMINATED = "Terminated";
+    const GRACE = "Grace";
+    const REDEMPTION = "Redemption";
+    const EXPIRED = "Expired";
+    const CANCELLED = "Cancelled";
+    const FRAUD = "Fraud";
+    const TRANSFERRED_AWAY = "Transferred Away";
+    const DRAFT = "Draft";
+    const DELIVERED = "Delivered";
+    const ON_HOLD = "On Hold";
+    const ACCEPTED = "Accepted";
+    const LOST = "Lost";
+    const DEAD = "Dead";
+    const PAID = "Paid";
+    const UNPAID = "Unpaid";
+    const COLLECTIONS = "Collections";
+    const REFUNDED = "Refunded";
+    const CLIENT_STATUSES = NULL;
+    const SERVICE_STATUSES = NULL;
+    const DOMAIN_STATUSES = NULL;
+    const QUOTE_STATUSES = NULL;
+    const INVOICE_STATUSES = NULL;
+    public static function normalise($status)
+    {
+        return preg_replace("/[^a-z0-9]/", "", strtolower($status));
+    }
+}
+
+?>

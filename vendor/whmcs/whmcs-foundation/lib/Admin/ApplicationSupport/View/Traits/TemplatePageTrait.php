@@ -1,0 +1,69 @@
+<?php
+/*
+ * @ https://EasyToYou.eu - IonCube v11 Decoder Online
+ * @ PHP 7.2 & 7.3
+ * @ Decoder version: 1.1.6
+ * @ Release: 10/08/2022
+ */
+
+namespace WHMCS\Admin\ApplicationSupport\View\Traits;
+
+// Decoded file for php version 72.
+trait TemplatePageTrait
+{
+    protected $templateVariables;
+    protected $templateEngine;
+    protected $templateDirectory = "";
+    protected $templateName = "";
+    protected abstract function factoryEngine();
+    public function getTemplateVariables()
+    {
+        if(!$this->templateVariables) {
+            $this->templateVariables = new \Symfony\Component\HttpFoundation\ParameterBag();
+        }
+        return $this->templateVariables;
+    }
+    public function setTemplateVariables($templateVariables)
+    {
+        if(!$templateVariables instanceof \Symfony\Component\HttpFoundation\ParameterBag) {
+            if(!is_array($templateVariables)) {
+                $templateVariables = [$templateVariables];
+            }
+            $templateVariables = new \Symfony\Component\HttpFoundation\ParameterBag($templateVariables);
+        }
+        $this->templateVariables = $templateVariables;
+        return $this;
+    }
+    public function getTemplateEngine()
+    {
+        if(!$this->templateEngine) {
+            $this->templateEngine = $this->factoryEngine();
+        }
+        return $this->templateEngine;
+    }
+    public function setTemplateEngine($templateEngine)
+    {
+        $this->templateEngine = $templateEngine;
+        return $this;
+    }
+    public function getTemplateDirectory()
+    {
+        return $this->templateDirectory;
+    }
+    public function setTemplateDirectory($templateDirectory)
+    {
+        $this->templateDirectory = $templateDirectory;
+        return $this;
+    }
+    public function getTemplateName()
+    {
+        return $this->templateName;
+    }
+    public function setTemplateName($templateName)
+    {
+        $this->templateName = $templateName;
+        return $this;
+    }
+}
+
+?>

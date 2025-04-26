@@ -1,0 +1,38 @@
+<?php
+/*
+ * @ https://EasyToYou.eu - IonCube v11 Decoder Online
+ * @ PHP 7.2 & 7.3
+ * @ Decoder version: 1.1.6
+ * @ Release: 10/08/2022
+ */
+
+// Decoded file for php version 72.
+namespace WHMCS\Cron\Task;
+
+class CurrencyUpdateProductPricing extends \WHMCS\Scheduling\Task\AbstractTask
+{
+    protected $defaultPriority = 1510;
+    protected $defaultFrequency = 1440;
+    protected $defaultDescription = "Update Product Prices for Current Rates";
+    protected $defaultName = "Product Pricing Updates";
+    protected $systemName = "CurrencyUpdateProductPricing";
+    protected $outputs = ["updated" => ["defaultValue" => 0, "identifier" => "updated", "name" => "Pricing Updated for Exchange Rates"]];
+    protected $icon = "far fa-money-bill-alt";
+    protected $isBooleanStatus = true;
+    protected $successCountIdentifier = "updated";
+    protected $successKeyword = "Completed";
+    public function __invoke()
+    {
+        if(!function_exists("currencyUpdatePricing")) {
+            include_once ROOTDIR . "/includes/currencyfunctions.php";
+        }
+        if(\WHMCS\Config\Setting::getValue("CurrencyAutoUpdateProductPrices")) {
+            currencyUpdatePricing();
+            $this->output("updated")->write(1);
+            logActivity("Cron Job: Products Updated for Current Rates");
+        }
+        return $this;
+    }
+}
+
+?>

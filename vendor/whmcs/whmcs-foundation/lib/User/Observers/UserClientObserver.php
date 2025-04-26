@@ -1,0 +1,62 @@
+<?php
+/*
+ * @ https://EasyToYou.eu - IonCube v11 Decoder Online
+ * @ PHP 7.2 & 7.3
+ * @ Decoder version: 1.1.6
+ * @ Release: 10/08/2022
+ */
+
+// Decoded file for php version 72.
+namespace WHMCS\User\Observers;
+
+class UserClientObserver
+{
+    protected $updateLogging = ["Account Ownership" => "owner", "Permissions" => "permissions"];
+    public function created(\WHMCS\User\Relations\UserClient $userClient) : void
+    {
+        if(!$userClient->owner) {
+            $permissions = $userClient->getPermissions()->get();
+            sort($permissions);
+            $permissions = implode(", ", $permissions);
+            logActivity("User Account Relationship Created - " . " '" . $userClient->user->fullName . "' granted access with" . " permissions: " . $permissions . " - Client ID: " . $userClient->client_id . " - UserID: " . $userClient->auth_user_id, $userClient->client_id);
+        }
+    }
+    public function deleted(\WHMCS\User\Relations\UserClient $userClient) : void
+    {
+        logActivity("User Account Relationship Removed", $userClient->client_id, ["addUserId" => $userClient->auth_user_id, "withClientId" => true]);
+    }
+    public function updated(\WHMCS\User\Relations\UserClient $userClient) : void
+    {
+        $changeList = $userClient->getChanges();
+        $changes = [];
+        foreach ($this->updateLogging as $friendly => $field) {
+            if(count($changeList) === 0) {
+                if(0 < count($changes)) {
+                    logActivity("User Account Relationship Modified - " . implode(", ", $changes) . " - Client ID: " . $userClient->client_id . " - UserID: " . $userClient->auth_user_id, $userClient->client_id);
+                }
+            } elseif(!array_key_exists($field, $changeList)) {
+            } else {
+                $original = $userClient->getOriginal($field);
+                $value = $userClient->getAttribute($field);
+                if($field === "permissions") {
+                    $original = explode(",", $original);
+                    $value = explode(",", $value);
+                    sort($original);
+                    sort($value);
+                    $original = implode(", ", $original);
+                    $value = implode(", ", $value);
+                    $changes[] = $friendly . " changed from '" . $original . "' to '" . $value . "'";
+                } elseif($field === "owner") {
+                    if($value) {
+                        $changes[] = $friendly . " Granted";
+                    } else {
+                        $changes[] = $friendly . " Removed";
+                    }
+                }
+                unset($changeList[$field]);
+            }
+        }
+    }
+}
+
+?>

@@ -1,0 +1,77 @@
+<?php
+/*
+ * @ https://EasyToYou.eu - IonCube v11 Decoder Online
+ * @ PHP 7.2 & 7.3
+ * @ Decoder version: 1.1.6
+ * @ Release: 10/08/2022
+ */
+
+// Decoded file for php version 72.
+namespace WHMCS\Module\Registrar\CentralNic;
+
+class Domain
+{
+    protected $name = "";
+    protected $sld = "";
+    protected $tld = "";
+    protected $lastSegment = "";
+    protected $nameservers;
+    public function __construct(string $name)
+    {
+        $this->name = $name;
+        $parts = explode(".", $name, 2);
+        $this->sld = $parts[0] ?? "";
+        $this->tld = $parts[1] ?? "";
+        $this->lastSegment = self::parseLastSegment($this->tld);
+        $this->nameservers = [];
+    }
+    public function getName()
+    {
+        return $this->name;
+    }
+    public function getSld()
+    {
+        return $this->sld;
+    }
+    public function getTld()
+    {
+        return $this->tld;
+    }
+    public function getLastSegment()
+    {
+        return $this->lastSegment;
+    }
+    public function isAfnic()
+    {
+        return in_array($this->getTld(), ["fr", "pm", "re", "tf", "wf", " yt"]);
+    }
+    public function isTld($tld)
+    {
+        return $this->getTld() == $tld;
+    }
+    public function supportContactOnTransfer(Zone $zone) : Zone
+    {
+        if($this->isAfnic() || $this->isTld("au") || !($this->isTld("us") || $this->isTld("ca")) && !$zone->needsTrade()) {
+            return true;
+        }
+        return false;
+    }
+    public function setNameServers(...$nameservers) : \self
+    {
+        foreach ($nameservers as $ns) {
+            $this->nameservers[] = $ns;
+        }
+        return $this;
+    }
+    public function getNameServers() : array
+    {
+        return $this->nameservers;
+    }
+    public static function parseLastSegment($tld)
+    {
+        $tldParts = explode(".", $tld);
+        return $tldParts[count($tldParts) - 1];
+    }
+}
+
+?>

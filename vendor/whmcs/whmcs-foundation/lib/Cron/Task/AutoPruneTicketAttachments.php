@@ -1,0 +1,46 @@
+<?php
+/*
+ * @ https://EasyToYou.eu - IonCube v11 Decoder Online
+ * @ PHP 7.2 & 7.3
+ * @ Decoder version: 1.1.6
+ * @ Release: 10/08/2022
+ */
+
+// Decoded file for php version 72.
+namespace WHMCS\Cron\Task;
+
+class AutoPruneTicketAttachments extends \WHMCS\Scheduling\Task\AbstractTask
+{
+    protected $defaultPriority = 1615;
+    protected $defaultFrequency = 60;
+    protected $defaultDescription = "Auto Remove Inactive Ticket Attachments";
+    protected $defaultName = "Prune Ticket Attachments";
+    protected $systemName = "AutoPruneTicketAttachments";
+    protected $icon = "fas fa-file-minus";
+    protected $successCountIdentifier = "removed";
+    protected $successKeyword = "Removed";
+    protected $outputs = ["removed" => ["defaultValue" => 0, "identifier" => "removed", "name" => "Removed"]];
+    protected $skipDailyCron = true;
+    public function __invoke()
+    {
+        if(!function_exists("removeAttachmentsFromClosedTickets")) {
+            require ROOTDIR . DIRECTORY_SEPARATOR . "includes" . DIRECTORY_SEPARATOR . "ticketfunctions.php";
+        }
+        $data = removeAttachmentsFromClosedTickets((int) \WHMCS\Config\Setting::getValue("PruneTicketAttachmentsMonths"));
+        $removedAttachments = $data["removed"];
+        $this->output("removed")->write($removedAttachments);
+        if(0 < $removedAttachments) {
+            $limitHit = $data["limitHit"];
+            $left = $data["left"];
+            $message = "Automated Prune Ticket Attachments: " . "Processed " . $removedAttachments . " records.";
+            if($limitHit) {
+                $message .= " Limit reached for a single run.";
+            }
+            $message .= " " . $left . " records remaining.";
+            logActivity($message);
+        }
+        return $this;
+    }
+}
+
+?>

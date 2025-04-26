@@ -1,0 +1,32 @@
+<?php
+/*
+ * @ https://EasyToYou.eu - IonCube v11 Decoder Online
+ * @ PHP 7.2 & 7.3
+ * @ Decoder version: 1.1.6
+ * @ Release: 10/08/2022
+ */
+
+// Decoded file for php version 72.
+namespace WHMCS\Updater\Version;
+
+class Version7100release1 extends IncrementalVersion
+{
+    protected $updateActions = ["updateEmailImagesAssetSetting", "updateMarketGooWelcomeEmail"];
+    protected function updateEmailImagesAssetSetting()
+    {
+        \WHMCS\Database\Capsule::table("tblfileassetsettings")->where("asset_type", "email images")->update(["asset_type" => "email_images"]);
+        return $this;
+    }
+    protected function updateMarketGooWelcomeEmail()
+    {
+        $md5Value = "4315dc494ac2e803207685543015e718";
+        $template = \WHMCS\Mail\Template::master()->where("name", "Marketgoo Welcome Email")->where("language", "")->first();
+        if($template && md5($template->message) === $md5Value) {
+            $template->message = "<p>Hi {\$client_first_name},</p>\n<p>Thank you for your purchase. Your website is now being analyzed by marketgoo. You’re now ready to take the next steps to improve your search engine ranking.</p>\n<p>To login and get started straight away, or check your SEO progress at any time, simply login to our client area and follow the link to access the marketgoo dashboard.</p>\n<p><a href=\"{\$whmcs_url}clientarea.php\">{\$whmcs_url}clientarea.php</a></p>\n<p>If you have any questions or need help, please contact us by opening a <a href=\"{\$whmcs_url}submitticket.php\">support ticket</a></p>\n<p>{\$signature}</p>";
+            $template->save();
+        }
+        return $this;
+    }
+}
+
+?>

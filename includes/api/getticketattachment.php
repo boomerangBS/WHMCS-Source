@@ -1,0 +1,60 @@
+<?php
+/*
+ * @ https://EasyToYou.eu - IonCube v11 Decoder Online
+ * @ PHP 7.2 & 7.3
+ * @ Decoder version: 1.1.6
+ * @ Release: 10/08/2022
+ */
+
+// Decoded file for php version 72.
+$relatedId = App::getFromRequest("relatedid");
+$type = App::getFromRequest("type");
+$index = App::getFromRequest("index");
+if(!$relatedId) {
+    $apiresults = ["result" => "error", "message" => "Related ID Required"];
+} elseif(!in_array($type, ["ticket", "reply", "note"])) {
+    $apiresults = ["result" => "error", "message" => "Invalid Type. Must be one of ticket, reply, note"];
+} elseif(!App::isInRequest("index")) {
+    $apiresults = ["result" => "error", "message" => "Attachment Index Required"];
+} else {
+    $field = "attachment";
+    switch ($type) {
+        case "reply":
+            $table = "tblticketreplies";
+            break;
+        case "note":
+            $table = "tblticketnotes";
+            $field = "attachments";
+            break;
+        default:
+            $table = "tbltickets";
+            $relatedData = WHMCS\Database\Capsule::table($table)->find($relatedId, [$field, "attachments_removed"]);
+            if(!$relatedData) {
+                $apiresults = ["result" => "error", "message" => "Related ID Not Found"];
+            } elseif(!$relatedData->{$field}) {
+                $apiresults = ["result" => "error", "message" => "No Attachments Found"];
+            } elseif($relatedData->attachments_removed) {
+                $apiresults = ["result" => "error", "message" => "Attachments Deleted"];
+            } else {
+                $attachments = explode("|", $relatedData->{$field});
+                if(!array_key_exists($index, $attachments)) {
+                    $apiresults = ["result" => "error", "message" => "Invalid Attachment Index"];
+                } else {
+                    $file = $attachments[$index];
+                    $fileName = substr($file, 7);
+                    $storage = Storage::ticketAttachments();
+                    try {
+                        $stream = $storage->readStream($file);
+                        $data = base64_encode(stream_get_contents($stream));
+                        fclose($stream);
+                    } catch (Exception $e) {
+                        $apiresults = ["result" => "error", "message" => $e->getMessage()];
+                        return NULL;
+                    }
+                    $apiresults = ["result" => "success", "filename" => $fileName, "data" => $data];
+                }
+            }
+    }
+}
+
+?>

@@ -1,0 +1,31 @@
+<?php
+/*
+ * @ https://EasyToYou.eu - IonCube v11 Decoder Online
+ * @ PHP 7.2 & 7.3
+ * @ Decoder version: 1.1.6
+ * @ Release: 10/08/2022
+ */
+
+// Decoded file for php version 72.
+namespace WHMCS\MarketConnect\Output;
+
+class ClientArea extends \WHMCS\ClientArea
+{
+    private $pricedCurrencyIds;
+    protected function getCurrencyOptions()
+    {
+        $currencyOptions = parent::getCurrencyOptions();
+        $pricedCurrencyOptions = [];
+        if(is_array($currencyOptions)) {
+            if(is_null($this->pricedCurrencyIds)) {
+                $this->pricedCurrencyIds = \WHMCS\Database\Capsule::table("tblpricing")->pluck("currency")->all();
+            }
+            $pricedCurrencyOptions = array_filter($currencyOptions, function ($value) {
+                return in_array($value["id"], $this->pricedCurrencyIds);
+            });
+        }
+        return 1 < count($pricedCurrencyOptions) ? $pricedCurrencyOptions : [];
+    }
+}
+
+?>

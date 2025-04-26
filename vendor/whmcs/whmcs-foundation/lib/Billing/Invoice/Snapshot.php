@@ -1,0 +1,88 @@
+<?php
+/*
+ * @ https://EasyToYou.eu - IonCube v11 Decoder Online
+ * @ PHP 7.2 & 7.3
+ * @ Decoder version: 1.1.6
+ * @ Release: 10/08/2022
+ */
+
+// Decoded file for php version 72.
+namespace WHMCS\Billing\Invoice;
+
+class Snapshot extends \WHMCS\Model\AbstractModel
+{
+    protected $table = "mod_invoicedata";
+    public $timestamps = false;
+    protected $primaryKey = "id";
+    public $unique = ["invoiceid"];
+    protected $columnMap = ["invoiceId" => "invoiceid", "clientsDetails" => "clientsdetails", "customFields" => "customfields"];
+    public function createTable($drop = false)
+    {
+        $schemaBuilder = \WHMCS\Database\Capsule::schema();
+        if($drop) {
+            $schemaBuilder->dropIfExists($this->getTable());
+        }
+        if(!$schemaBuilder->hasTable($this->getTable())) {
+            $schemaBuilder->create($this->getTable(), function ($table) {
+                $table->integer("id")->autoIncrement();
+                $table->integer("invoiceid");
+                $table->text("clientsdetails")->collation("utf8_unicode_ci");
+                $table->text("customfields")->collation("utf8_unicode_ci");
+                $table->string("version", 255)->nullable()->collation("utf8_unicode_ci");
+                $table->charset = "utf8mb3";
+                $table->collation = "utf8_unicode_ci";
+            });
+        }
+    }
+    public function invoice()
+    {
+        return $this->belongsTo("WHMCS\\Billing\\Invoice", "invoiceid", "id", "invoice");
+    }
+    public function getClientsDetailsAttribute()
+    {
+        $rawClientsDetails = $this->getRawAttribute("clientsdetails");
+        if(is_null($rawClientsDetails)) {
+            return [];
+        }
+        $clientsDetails = json_decode($rawClientsDetails, true);
+        if(!is_null($clientsDetails) && json_last_error() === JSON_ERROR_NONE) {
+            return $clientsDetails;
+        }
+        return safe_unserialize($rawClientsDetails);
+    }
+    public function getCustomFieldsAttribute()
+    {
+        $rawCustomFields = $this->getRawAttribute("customfields");
+        if(is_null($rawCustomFields)) {
+            return [];
+        }
+        $customFields = json_decode($rawCustomFields, true);
+        if(!is_null($customFields) && json_last_error() === JSON_ERROR_NONE) {
+            return $customFields;
+        }
+        return safe_unserialize($rawCustomFields);
+    }
+    public function getVersion() : \WHMCS\Version\SemanticVersion
+    {
+        $version = !empty($this->version) ? $this->version : "0.0.0";
+        return new \WHMCS\Version\SemanticVersion($version);
+    }
+    public function setClientsDetailsAttribute(array $clientsDetails)
+    {
+        $this->attributes["clientsDetails"] = self::setClientsDetailsMutator($clientsDetails);
+    }
+    protected static function setClientsDetailsMutator(array $clientsDetails)
+    {
+        return json_encode($clientsDetails);
+    }
+    public function setCustomFieldsAttribute(array $customFields)
+    {
+        $this->attributes["customFields"] = self::setCustomFieldsMutator($customFields);
+    }
+    protected static function setCustomFieldsMutator(array $customFields)
+    {
+        return json_encode($customFields);
+    }
+}
+
+?>

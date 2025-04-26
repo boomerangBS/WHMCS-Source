@@ -1,0 +1,71 @@
+<?php
+/*
+ * @ https://EasyToYou.eu - IonCube v11 Decoder Online
+ * @ PHP 7.2 & 7.3
+ * @ Decoder version: 1.1.6
+ * @ Release: 10/08/2022
+ */
+
+// Decoded file for php version 72.
+namespace WHMCS\Module\Fraud;
+
+class AbstractResponse
+{
+    protected $data;
+    protected $httpCode = 200;
+    public function __construct($jsonData, $httpCode = NULL)
+    {
+        if(is_null($httpCode)) {
+            $httpCode = $this->get("http_response_code");
+        }
+        if(is_null($httpCode)) {
+            $httpCode = 200;
+        }
+        $this->httpCode = $httpCode;
+        $this->data = $this->parseResponseJson($jsonData);
+    }
+    protected function parseResponseJson($jsonData)
+    {
+        $decodedData = json_decode($jsonData, true);
+        if(!$decodedData || !is_array($decodedData) || json_last_error() !== JSON_ERROR_NONE) {
+            return [];
+        }
+        return $decodedData;
+    }
+    public function isSuccessful()
+    {
+        return $this->httpCode == 200;
+    }
+    public function getHttpCode()
+    {
+        return $this->httpCode;
+    }
+    public function isEmpty()
+    {
+        return count($this->data) == 0;
+    }
+    public function get($key)
+    {
+        $keyParts = explode(".", $key);
+        if(count($keyParts) == 1) {
+            return isset($this->data[$key]) ? $this->data[$key] : NULL;
+        }
+        $value = $this->data;
+        foreach ($keyParts as $key) {
+            $value = isset($value[$key]) ? $value[$key] : NULL;
+        }
+        return $value;
+    }
+    public function toArray()
+    {
+        $response = (array) $this->data;
+        $response["http_response_code"] = $this->httpCode;
+        return $response;
+    }
+    public function toJson()
+    {
+        return json_encode($this->data);
+    }
+}
+
+?>

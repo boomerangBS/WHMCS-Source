@@ -1,0 +1,42 @@
+<?php
+/*
+ * @ https://EasyToYou.eu - IonCube v11 Decoder Online
+ * @ PHP 7.2 & 7.3
+ * @ Decoder version: 1.1.6
+ * @ Release: 10/08/2022
+ */
+
+// Decoded file for php version 72.
+if(!defined("WHMCS")) {
+    exit("This file cannot be accessed directly");
+}
+if(!function_exists("deleteTicket")) {
+    require ROOTDIR . "/includes/ticketfunctions.php";
+}
+$ticketId = App::getFromRequest("ticketid");
+$replyId = App::getFromRequest("replyid");
+if(!$ticketId) {
+    $apiresults = ["result" => "error", "message" => "Ticket ID Required"];
+} elseif(!$replyId) {
+    $apiresults = ["result" => "error", "message" => "Reply ID Required"];
+} else {
+    $ticket = WHMCS\Database\Capsule::table("tbltickets")->find($ticketId);
+    if(!$ticket) {
+        $apiresults = ["result" => "error", "message" => "Ticket ID Not Found"];
+    } else {
+        $reply = WHMCS\Database\Capsule::table("tblticketreplies")->where("tid", $ticketId)->find($replyId);
+        if(!$reply) {
+            $apiresults = ["result" => "error", "message" => "Reply ID Not Found"];
+        } else {
+            try {
+                deleteTicket($ticketId, $replyId);
+                $apiresults = ["result" => "success"];
+            } catch (Exception $e) {
+                $apiresults = ["result" => "error", "message" => $e->getMessage()];
+                return NULL;
+            }
+        }
+    }
+}
+
+?>

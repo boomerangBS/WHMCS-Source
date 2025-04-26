@@ -1,0 +1,46 @@
+<?php
+/*
+ * @ https://EasyToYou.eu - IonCube v11 Decoder Online
+ * @ PHP 7.2 & 7.3
+ * @ Decoder version: 1.1.6
+ * @ Release: 10/08/2022
+ */
+
+// Decoded file for php version 72.
+namespace WHMCS\Updater\Version;
+
+class Version750release1 extends IncrementalVersion
+{
+    protected $updateActions = ["addInvoiceModifiedEmail"];
+    public function __construct(\WHMCS\Version\SemanticVersion $version)
+    {
+        parent::__construct($version);
+        $this->filesToRemove[] = ROOTDIR . DIRECTORY_SEPARATOR . "includes" . DIRECTORY_SEPARATOR . "classes";
+        $this->filesToRemove[] = ROOTDIR . DIRECTORY_SEPARATOR . "includes" . DIRECTORY_SEPARATOR . "whoisfunctions.php";
+        $this->filesToRemove[] = ROOTDIR . DIRECTORY_SEPARATOR . "admin" . DIRECTORY_SEPARATOR . "lang" . DIRECTORY_SEPARATOR . "adminlangupdate.php";
+        $this->filesToRemove[] = ROOTDIR . DIRECTORY_SEPARATOR . "modules" . DIRECTORY_SEPARATOR . "addons" . DIRECTORY_SEPARATOR . "project_management" . DIRECTORY_SEPARATOR . "edittask.php";
+    }
+    protected function addInvoiceModifiedEmail()
+    {
+        $existingTemplate = \WHMCS\Mail\Template::where("name", "Invoice Modified")->first();
+        if(!$existingTemplate) {
+            $newTemplate = new \WHMCS\Mail\Template();
+            $newTemplate->name = "Invoice Modified";
+            $newTemplate->subject = "Invoice #{\$invoice_num} Updated";
+            $newTemplate->type = "invoice";
+            $newTemplate->message = "<p>Dear {\$client_name},</p>\n<p>This is a notice that invoice #{\$invoice_num} which was originally generated on {\$invoice_date_created} has been updated.</p>\n<p>Your payment method is: {\$invoice_payment_method}</p>\n<p>\n    Invoice #{\$invoice_num}<br>\n    Amount Due: {\$invoice_balance}<br>\n    Due Date: {\$invoice_date_due}\n</p>\n<p>Invoice Items</p>\n<p>\n    {\$invoice_html_contents}<br>\n    ------------------------------------------------------\n</p>\n<p>You can login to our client area to view and pay the invoice at {\$invoice_link}</p>\n<p>{\$signature}</p>";
+            $newTemplate->custom = false;
+            $newTemplate->plaintext = false;
+            $newTemplate->disabled = false;
+            $newTemplate->fromName = "";
+            $newTemplate->fromEmail = "";
+            $newTemplate->attachments = [];
+            $newTemplate->copyTo = [];
+            $newTemplate->blindCopyTo = [];
+            $newTemplate->language = "";
+            $newTemplate->save();
+        }
+    }
+}
+
+?>
