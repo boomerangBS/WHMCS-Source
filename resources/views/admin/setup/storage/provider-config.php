@@ -1,12 +1,5 @@
 <?php
-/*
- * @ https://EasyToYou.eu - IonCube v11 Decoder Online
- * @ PHP 7.2 & 7.3
- * @ Decoder version: 1.1.6
- * @ Release: 10/08/2022
- */
 
-// Decoded file for php version 72.
 echo "\n<style>\n    .provider-config-field {\n        margin: 0 0 20px 0;\n    }\n    .provider-config-field strong {\n        display: block;\n        margin: 5px 0;\n    }\n    .provider-config-field input {\n        display: block;\n        margin: 5px 0;\n        max-width: 100%;\n        width: 100%;\n    }\n</style>\n\n<script type=\"application/javascript\">\n(function(\$, window) {\n    \$(document).ready(function() {\n        var form = \$('.provider-config-form').first();\n\n        if (\$(form).find('input:not([type=hidden]):not(:disabled)').length === 0) {\n            \$(form).parents('.modal').find('.modal-submit').hide();\n        }\n\n        \$(form).on('submit', function (e) {\n            e.preventDefault();\n            \$('#btnSaveStorageConfiguration').trigger('click');\n        });\n    });\n})(jQuery, window);\n</script>\n\n<form method=\"post\" class=\"provider-config-form\" action=\"";
 echo routePath("admin-setup-storage-save-configuration", $id);
 echo "\">\n    ";

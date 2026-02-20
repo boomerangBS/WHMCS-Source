@@ -1,12 +1,5 @@
 <?php
-/*
- * @ https://EasyToYou.eu - IonCube v11 Decoder Online
- * @ PHP 7.2 & 7.3
- * @ Decoder version: 1.1.6
- * @ Release: 10/08/2022
- */
 
-// Decoded file for php version 72.
 function paypal_addon_config()
 {
     $configarray = ["name" => "PayPal Transaction Lookup", "version" => "2.0.1", "author" => "WHMCS", "description" => "This addon shows your PayPal account balance on the admin homepage & allows you to search PayPal Transactions without needing to login to PayPal", "fields" => ["username" => ["FriendlyName" => "API Username", "Type" => "text", "Size" => "30"], "password" => ["FriendlyName" => "API Password", "Type" => "password", "Size" => "30"], "signature" => ["FriendlyName" => "API Signature", "Type" => "password", "Size" => "50"]]];

@@ -1,14 +1,7 @@
 <?php
-/*
- * @ https://EasyToYou.eu - IonCube v11 Decoder Online
- * @ PHP 7.2 & 7.3
- * @ Decoder version: 1.1.6
- * @ Release: 10/08/2022
- */
+
 
 namespace WHMCS\Module\Gateway\paypal_ppcpv\API;
-
-// Decoded file for php version 72.
 class WebhookController
 {
     protected $mapWebhookEvents = ["PAYMENT.CAPTURE.COMPLETED" => "WHMCS\\Module\\Gateway\\paypal_ppcpv\\API\\PaymentCaptureCompletedEvent", "PAYMENT.CAPTURE.DENIED" => "WHMCS\\Module\\Gateway\\paypal_ppcpv\\API\\PaymentCaptureDeniedEvent", "PAYMENT.CAPTURE.DECLINED" => "WHMCS\\Module\\Gateway\\paypal_ppcpv\\API\\PaymentCaptureDeclinedEvent", "PAYMENT.CAPTURE.REFUNDED" => "WHMCS\\Module\\Gateway\\paypal_ppcpv\\API\\PaymentCaptureRefundedEvent", "PAYMENT.CAPTURE.REVERSED" => "WHMCS\\Module\\Gateway\\paypal_ppcpv\\API\\PaymentCaptureReversedEvent", "PAYMENT.CAPTURE.PENDING" => "WHMCS\\Module\\Gateway\\paypal_ppcpv\\API\\PaymentCapturePendingEvent", "VAULT.PAYMENT-TOKEN.CREATED" => "WHMCS\\Module\\Gateway\\paypal_ppcpv\\API\\VaultPaymentTokenCreatedEvent", "VAULT.PAYMENT-TOKEN.DELETED" => "WHMCS\\Module\\Gateway\\paypal_ppcpv\\API\\VaultPaymentTokenDeletedEvent"];

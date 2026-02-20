@@ -1,12 +1,5 @@
 <?php
-/*
- * @ https://EasyToYou.eu - IonCube v11 Decoder Online
- * @ PHP 7.2 & 7.3
- * @ Decoder version: 1.1.6
- * @ Release: 10/08/2022
- */
 
-// Decoded file for php version 72.
 echo "<table class=\"form\" width=\"100%\" border=\"0\" cellpadding=\"3\" cellspacing=\"2\">\n    <tbody>\n        <tr>\n            <td class=\"fieldlabel\">";
 echo AdminLang::trans("fields.createdAt");
 echo "</td>\n            <td class=\"fieldarea\">";

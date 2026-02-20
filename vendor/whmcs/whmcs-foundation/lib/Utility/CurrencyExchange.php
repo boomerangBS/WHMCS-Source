@@ -1,14 +1,7 @@
 <?php
-/*
- * @ https://EasyToYou.eu - IonCube v11 Decoder Online
- * @ PHP 7.2 & 7.3
- * @ Decoder version: 1.1.6
- * @ Release: 10/08/2022
- */
+
 
 namespace WHMCS\Utility;
-
-// Decoded file for php version 72.
 class CurrencyExchange extends \WHMCS\Config\AbstractConfig
 {
     const EXCHANGE_RATE_FEED_URL = "https://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml";

@@ -1,12 +1,5 @@
 <?php
-/*
- * @ https://EasyToYou.eu - IonCube v11 Decoder Online
- * @ PHP 7.2 & 7.3
- * @ Decoder version: 1.1.6
- * @ Release: 10/08/2022
- */
 
-// Decoded file for php version 72.
 echo "<p>\n    ";
 echo AdminLang::trans("apicreds.introduction");
 echo "</p>\n<div role=\"tabpanel\">\n    <ul class=\"nav nav-tabs\" role=\"tablist\">\n        <li role=\"presentation\" class=\"active\">\n            <a href=\"#tabManageCredentials\" id=\"btnManageCredentials\" aria-controls=\"tabManageCredentials\" role=\"tab\" data-toggle=\"tab\">\n                <i class=\"fas fa-sign-in-alt\"></i> ";

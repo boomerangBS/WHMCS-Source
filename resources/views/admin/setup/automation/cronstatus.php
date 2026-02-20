@@ -1,12 +1,5 @@
 <?php
-/*
- * @ https://EasyToYou.eu - IonCube v11 Decoder Online
- * @ PHP 7.2 & 7.3
- * @ Decoder version: 1.1.6
- * @ Release: 10/08/2022
- */
 
-// Decoded file for php version 72.
 echo "<p>WHMCS requires the regular and frequent invocation of a file via cron to automate tasks within WHMCS.</p>\n\n<p>";
 echo AdminLang::trans("automation.cronSample");
 echo "</p>\n\n<h2>Cron Command</h2>\n\n<p><strong>Recommended Schedule:</strong> Every 5 minutes, or as frequently as your hosting provider allows</p>\n\n<div class=\"cron-command input-group\">\n    <input type=\"text\"\n           id=\"cronPhp\"\n           value=\"";

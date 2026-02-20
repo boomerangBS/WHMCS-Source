@@ -1,14 +1,7 @@
 <?php
-/*
- * @ https://EasyToYou.eu - IonCube v11 Decoder Online
- * @ PHP 7.2 & 7.3
- * @ Decoder version: 1.1.6
- * @ Release: 10/08/2022
- */
+
 
 namespace WHMCS;
-
-// Decoded file for php version 72.
 class Carbon extends \Carbon\Carbon
 {
     protected static $supportedLocales = ["af", "ar", "az", "bg", "bn", "ca", "cs", "da", "de", "el", "en", "eo", "es", "et", "eu", "fa", "fi", "fo", "fr", "he", "hr", "hu", "id", "it", "ja", "ko", "lt", "lv", "ms", "nl", "no", "pl", "pt", "pt_BR", "ro", "ru", "sk", "sl", "sq", "sr", "sv", "th", "tr", "uk", "uz", "vi", "zh", "zh-TW"];

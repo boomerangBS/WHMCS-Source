@@ -1,12 +1,5 @@
 <?php
-/*
- * @ https://EasyToYou.eu - IonCube v11 Decoder Online
- * @ PHP 7.2 & 7.3
- * @ Decoder version: 1.1.6
- * @ Release: 10/08/2022
- */
 
-// Decoded file for php version 72.
 function onlinenic_getConfigArray()
 {
     $query = "CREATE TABLE IF NOT EXISTS `mod_onlinenic` (`id` int(10) NOT NULL auto_increment,`domain` VARCHAR(255) NOT NULL,`lockstatus` BOOL NOT NULL DEFAULT '0',PRIMARY KEY  (`id`),KEY `domainid` (`domain`))";

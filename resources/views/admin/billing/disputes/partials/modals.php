@@ -1,12 +1,5 @@
 <?php
-/*
- * @ https://EasyToYou.eu - IonCube v11 Decoder Online
- * @ PHP 7.2 & 7.3
- * @ Decoder version: 1.1.6
- * @ Release: 10/08/2022
- */
 
-// Decoded file for php version 72.
 echo "<form id=\"frmModalClose\" class=\"form-inline modal-form\" method=\"post\" action=\"\">\n    <div class=\"modal fade\" id=\"modalClose\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"modalCloseLabel\" aria-hidden=\"true\">\n        <div class=\"modal-dialog\">\n            <div class=\"modal-content panel panel-primary\">\n                <div class=\"modal-header panel-heading\">\n                    <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"";
 echo AdminLang::trans("global.close");
 echo "\">\n                        <span aria-hidden=\"true\">&times;</span>\n                    </button>\n                    <h4 class=\"modal-title\">\n                        ";

@@ -1,12 +1,5 @@
 <?php
-/*
- * @ https://EasyToYou.eu - IonCube v11 Decoder Online
- * @ PHP 7.2 & 7.3
- * @ Decoder version: 1.1.6
- * @ Release: 10/08/2022
- */
 
-// Decoded file for php version 72.
 function namecheap_getConfigArray()
 {
     $configarray = ["Username" => ["Type" => "text", "Size" => "20", "Description" => "Enter your username here."], "Password" => ["Type" => "text", "Size" => "20", "Description" => "Enter your API key here. To get your api key, go to Manage Profile section in Namecheap.com, then click API access link on the left hand side. C/p the key here. DON'T include your password."], "PromotionCode" => ["Type" => "text", "Size" => "20", "Description" => "Enter your promotional (coupon) code."], "SandboxUsername" => ["Type" => "text", "Size" => "20", "Description" => "Enter your sandbox username here. (This will be used only if you set the test mode on.)"], "SandboxPassword" => ["Type" => "text", "Size" => "20", "Description" => "Enter your sandbox API key here. (This will be used only if you set the test mode on.)"], "TestMode" => ["Type" => "yesno"]];

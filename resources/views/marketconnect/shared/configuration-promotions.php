@@ -1,12 +1,5 @@
 <?php
-/*
- * @ https://EasyToYou.eu - IonCube v11 Decoder Online
- * @ PHP 7.2 & 7.3
- * @ Decoder version: 1.1.6
- * @ Release: 10/08/2022
- */
 
-// Decoded file for php version 72.
 echo "<h3>Client Area</h3>\n\n<div class=\"promotions\">\n    <div class=\"row\">\n        <div class=\"col-sm-6\">\n            <div class=\"promo\">\n                <h4>Homepage <input type=\"checkbox\" class=\"promo-switch\" data-promo=\"client-home\" data-service=\"";
 echo $serviceOffering["vendorSystemName"];
 echo "\"";

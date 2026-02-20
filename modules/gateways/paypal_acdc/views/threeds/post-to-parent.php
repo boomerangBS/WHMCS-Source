@@ -1,12 +1,5 @@
 <?php
-/*
- * @ https://EasyToYou.eu - IonCube v11 Decoder Online
- * @ PHP 7.2 & 7.3
- * @ Decoder version: 1.1.6
- * @ Release: 10/08/2022
- */
 
-// Decoded file for php version 72.
 echo "\n<html>\n    <head>\n        <title>";
 echo WHMCS\Config\Setting::getValue("CompanyName");
 echo "</title>\n    </head>\n    <body onload=\"document.frmThreeDSResultPage.submit();\">\n        <form name=\"frmThreeDSResultPage\" method=\"post\" action=\"";

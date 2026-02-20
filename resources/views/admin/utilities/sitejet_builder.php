@@ -1,12 +1,5 @@
 <?php
-/*
- * @ https://EasyToYou.eu - IonCube v11 Decoder Online
- * @ PHP 7.2 & 7.3
- * @ Decoder version: 1.1.6
- * @ Release: 10/08/2022
- */
 
-// Decoded file for php version 72.
 echo "<h1 class=\"sitejet-contentarea__header\">\n    <span class=\"u-inline-flex\">";
 echo AdminLang::trans("utilities.sitejetBuilder.title");
 echo "</span>\n    <a href=\"https://go.whmcs.com/1829/Sitejet-Builder\" class=\"btn btn-sm btn-success\" target=\"_blank\">\n        <i class=\"fas fa-external-link-square\"></i>\n        ";

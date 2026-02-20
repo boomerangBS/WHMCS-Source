@@ -1,12 +1,5 @@
 <?php
-/*
- * @ https://EasyToYou.eu - IonCube v11 Decoder Online
- * @ PHP 7.2 & 7.3
- * @ Decoder version: 1.1.6
- * @ Release: 10/08/2022
- */
 
-// Decoded file for php version 72.
 define("SERVICES_JSON_SLICE", 1);
 define("SERVICES_JSON_IN_STR", 2);
 define("SERVICES_JSON_IN_ARR", 3);

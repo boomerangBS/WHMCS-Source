@@ -1,12 +1,5 @@
 <?php
-/*
- * @ https://EasyToYou.eu - IonCube v11 Decoder Online
- * @ PHP 7.2 & 7.3
- * @ Decoder version: 1.1.6
- * @ Release: 10/08/2022
- */
 
-// Decoded file for php version 72.
 echo "<div class=\"pull-right\">\n    <div class=\"panel panel-default panel-market-account";
 echo $account["linked"] ? " account-linked" : "";
 echo "\" id=\"panelAccount\">\n        <div class=\"panel-heading\">\n            <div class=\"btn-group pull-right\" style=\"margin-top: -6px;margin-right: -11px;\">\n                <button type=\"button\" class=\"btn dropdown-toggle\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\" style=\"background: transparent;border: 0;box-shadow: none;\">\n                    <i class=\"fas fa-question-circle\"></i>\n                </button>\n                <ul class=\"dropdown-menu pull-right\">\n                    <li><a href=\"https://marketplace.whmcs.com/connect/getting-started\" target=\"_blank\"><i class=\"fas fa-star fa-fw\"></i> Getting Started Guide</a></li>\n                    <li><a href=\"https://marketplace.whmcs.com/promotions\" target=\"_blank\"><i class=\"fas fa-ticket-alt fa-fw\"></i> Current Promotions</a></li>\n                    <li><a href=\"https://marketplace.whmcs.com/help/connect/kb\" target=\"_blank\"><i class=\"fas fa-question-circle fa-fw\"></i> Knowledgebase</a></li>\n                    <li><a href=\"https://marketplace.whmcs.com/contact/connect\" target=\"_blank\"><i class=\"fas fa-envelope fa-fw\"></i> Contact Support</a></li>\n                    <li class=\"divider\"></li>\n                    <li><a href=\"#\" class=\"account-refresh\"><i class=\"fas fa-sync fa-fw\"></i> ";

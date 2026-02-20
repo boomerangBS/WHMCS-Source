@@ -1,12 +1,5 @@
 <?php
-/*
- * @ https://EasyToYou.eu - IonCube v11 Decoder Online
- * @ PHP 7.2 & 7.3
- * @ Decoder version: 1.1.6
- * @ Release: 10/08/2022
- */
 
-// Decoded file for php version 72.
 echo "<script>\n    var myDefaultWhiteList = \$.fn.tooltip.Constructor.DEFAULTS.whiteList;\n    myDefaultWhiteList.button = ['data-role'];\n\n    var tour = new Tour({\n        name: \"marketconnect\",\n        container: \"body\",\n        smartPlacement: true,\n        keyboard: true,\n        storage: window.localStorage,\n        steps: [\n            ";
 foreach ($tourSteps as $step) {
     echo "            {\n                element: \"";

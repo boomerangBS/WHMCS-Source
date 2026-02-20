@@ -1,12 +1,5 @@
 <?php
-/*
- * @ https://EasyToYou.eu - IonCube v11 Decoder Online
- * @ PHP 7.2 & 7.3
- * @ Decoder version: 1.1.6
- * @ Release: 10/08/2022
- */
 
-// Decoded file for php version 72.
 echo "<div class=\"container\">\n    <div class=\"apps-and-integrations\">\n\n        <h1>\n            <a href=\"https://marketplace.whmcs.com/?utm_source=inproduct&utm_medium=poweredby\" target=\"_blank\" class=\"hidden-xs hidden-sm\">\n                <img src=\"";
 echo $assetHelper->getImgPath();
 echo "/powered-by-marketplace.png\" class=\"powered-by\" alt=\"Powered by WHMCS Marketplace\">\n            </a>\n            ";

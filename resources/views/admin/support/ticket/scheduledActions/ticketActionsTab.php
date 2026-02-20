@@ -1,12 +1,5 @@
 <?php
-/*
- * @ https://EasyToYou.eu - IonCube v11 Decoder Online
- * @ PHP 7.2 & 7.3
- * @ Decoder version: 1.1.6
- * @ Release: 10/08/2022
- */
 
-// Decoded file for php version 72.
 echo "<script>\n    \$(document).ready(function() {\n        initDateRangePicker();\n        setScheduledActionTabCount(\"";
 echo addslashes($numScheduledActions);
 echo "\");\n        WHMCS.ui.dataTable.getTableById(\n            'scheduledActionsList',\n            {\n                dom: '',\n                paging: false,\n                lengthChange: false,\n                searching: false,\n                ordering: false,\n                info: false,\n                autoWidth: false,\n                language: {\n                    emptyTable: \"";

@@ -1,14 +1,7 @@
 <?php
-/*
- * @ https://EasyToYou.eu - IonCube v11 Decoder Online
- * @ PHP 7.2 & 7.3
- * @ Decoder version: 1.1.6
- * @ Release: 10/08/2022
- */
+
 
 namespace WHMCS;
-
-// Decoded file for php version 72.
 define("K_TCPDF_EXTERNAL_CONFIG", true);
 define("K_PATH_CACHE", \Config::self()->templates_compiledir . DIRECTORY_SEPARATOR);
 define("PDF_CREATOR", "WHMCS");

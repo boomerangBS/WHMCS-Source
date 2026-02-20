@@ -1,12 +1,5 @@
 <?php
-/*
- * @ https://EasyToYou.eu - IonCube v11 Decoder Online
- * @ PHP 7.2 & 7.3
- * @ Decoder version: 1.1.6
- * @ Release: 10/08/2022
- */
 
-// Decoded file for php version 72.
 echo "<div id=\"admin-dashboard-carousel\"\n     class=\"carousel slide admin-dashboard-carousel\"\n     data-ride=\"carousel\"\n>\n    <div class=\"carousel-inner\" role=\"listbox\">\n        ";
 foreach ($promotions as $index => $promotion) {
     echo "            <div class=\"item";

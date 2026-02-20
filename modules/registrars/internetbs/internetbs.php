@@ -1,12 +1,5 @@
 <?php
-/*
- * @ https://EasyToYou.eu - IonCube v11 Decoder Online
- * @ PHP 7.2 & 7.3
- * @ Decoder version: 1.1.6
- * @ Release: 10/08/2022
- */
 
-// Decoded file for php version 72.
 define("API_SERVER_URL", "https://api.internet.bs/");
 define("API_TESTSERVER_URL", "https://testapi.internet.bs/");
 $internetbs_last_error = NULL;

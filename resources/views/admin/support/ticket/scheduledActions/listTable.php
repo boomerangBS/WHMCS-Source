@@ -1,12 +1,5 @@
 <?php
-/*
- * @ https://EasyToYou.eu - IonCube v11 Decoder Online
- * @ PHP 7.2 & 7.3
- * @ Decoder version: 1.1.6
- * @ Release: 10/08/2022
- */
 
-// Decoded file for php version 72.
 echo "<div class=\"tablebg\">\n    <table id=\"scheduledActionsList\"\n           class=\"table display data-driven\"\n           data-ajax-url=\"";
 echo routePath("admin-table-ticket-actions", $ticket->id);
 echo "\"\n           data-ordering=\"false\"\n           data-defer-loading=\"0\"\n           data-server-side=\"true\"\n           data-lang-empty-table=\"";

@@ -1,12 +1,5 @@
 <?php
-/*
- * @ https://EasyToYou.eu - IonCube v11 Decoder Online
- * @ PHP 7.2 & 7.3
- * @ Decoder version: 1.1.6
- * @ Release: 10/08/2022
- */
 
-// Decoded file for php version 72.
 echo "<div class=\"form-group\">\n    <label for=\"inputFirstName\" class=\"col-md-2 col-sm-4 control-label\">\n        ";
 echo AdminLang::trans("fields.firstname");
 echo "    </label>\n    <div class=\"col-md-10 col-sm-8\">\n        <input type=\"text\"\n               id=\"inputFirstName\"\n               name=\"first_name\"\n               class=\"form-control\"\n               value=\"";

@@ -1,12 +1,5 @@
 <?php
-/*
- * @ https://EasyToYou.eu - IonCube v11 Decoder Online
- * @ PHP 7.2 & 7.3
- * @ Decoder version: 1.1.6
- * @ Release: 10/08/2022
- */
 
-// Decoded file for php version 72.
 echo "<div class=\"slide-tray right setup-tasks\" id=\"setupTasksDrawer\">\n    <div class=\"inner-container\">\n        <h2>\n            ";
 echo AdminLang::trans("setup.tasks");
 echo "            <button type=\"button\" class=\"close\" data-dismiss=\"slide-tray\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button>\n        </h2>\n\n        <p>\n            ";

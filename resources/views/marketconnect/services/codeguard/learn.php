@@ -1,12 +1,5 @@
 <?php
-/*
- * @ https://EasyToYou.eu - IonCube v11 Decoder Online
- * @ PHP 7.2 & 7.3
- * @ Decoder version: 1.1.6
- * @ Release: 10/08/2022
- */
 
-// Decoded file for php version 72.
 $this->layout("layouts/learn", $serviceOffering);
 $this->start("nav-tabs");
 echo "<li class=\"active\" role=\"presentation\">\n    <a aria-controls=\"about\" data-toggle=\"tab\" href=\"#about\" role=\"tab\">About</a>\n</li>\n<li role=\"presentation\">\n    <a aria-controls=\"backup\" data-toggle=\"tab\" href=\"#backup\" role=\"tab\">Website Backup</a>\n</li>\n<li role=\"presentation\">\n    <a aria-controls=\"wordpress\" data-toggle=\"tab\" href=\"#wordpress\" role=\"tab\">Wordpress Management</a>\n</li>\n<li role=\"presentation\">\n    <a aria-controls=\"pricing\" data-toggle=\"tab\" href=\"#pricing\" role=\"tab\">Pricing</a>\n</li>\n<li role=\"presentation\">\n    <a aria-controls=\"faq\" data-toggle=\"tab\" href=\"#faq\" role=\"tab\">FAQ</a>\n</li>\n\n";

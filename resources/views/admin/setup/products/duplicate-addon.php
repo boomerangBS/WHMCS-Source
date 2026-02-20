@@ -1,12 +1,5 @@
 <?php
-/*
- * @ https://EasyToYou.eu - IonCube v11 Decoder Online
- * @ PHP 7.2 & 7.3
- * @ Decoder version: 1.1.6
- * @ Release: 10/08/2022
- */
 
-// Decoded file for php version 72.
 echo "<h2>";
 echo AdminLang::trans("addons.duplicateAddon");
 echo "</h2>\n<form class=\"form\" method=\"post\" action=\"configaddons.php?action=duplicateNow\">\n    <table class=\"form\" width=\"100%\" border=\"0\" cellspacing=\"2\" cellpadding=\"3\">\n        <tr>\n            <td width=150 class=\"fieldlabel\">\n                ";

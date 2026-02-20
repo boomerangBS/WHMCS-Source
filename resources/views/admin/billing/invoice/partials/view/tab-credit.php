@@ -1,12 +1,5 @@
 <?php
-/*
- * @ https://EasyToYou.eu - IonCube v11 Decoder Online
- * @ PHP 7.2 & 7.3
- * @ Decoder version: 1.1.6
- * @ Release: 10/08/2022
- */
 
-// Decoded file for php version 72.
 echo $aInt->nextAdminTab();
 echo "<div class=\"row text-center\">\n    <div class=\"col-md-offset-2 col-md-4 col-sm-12\">\n        <b>";
 echo AdminLang::trans("invoices.addcredit");

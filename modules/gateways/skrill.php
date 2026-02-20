@@ -1,12 +1,5 @@
 <?php
-/*
- * @ https://EasyToYou.eu - IonCube v11 Decoder Online
- * @ PHP 7.2 & 7.3
- * @ Decoder version: 1.1.6
- * @ Release: 10/08/2022
- */
 
-// Decoded file for php version 72.
 function skrill_config()
 {
     return ["FriendlyName" => ["Type" => "System", "Value" => "Skrill 1-Tap"], "emailAddress" => ["FriendlyName" => "Email Address", "Type" => "text", "Size" => "30"], "apiMqiPassword" => ["FriendlyName" => "API/MQI Password", "Type" => "text", "Size" => "30", "Description" => "You will need to enable the MQI (merchant query interface) and API (automated payment interface) and set up an MQI/API password to use 1-Tap. <a href=\"https://go.whmcs.com/2141/skrill-1-tap\" class=\"autoLinked\">Learn more</a>"], "secretWord" => ["FriendlyName" => "Secret Word", "Type" => "text", "Size" => "30", "Description" => "This can be configured within your <a href=\"https://account.skrill.com/\" class=\"autoLinked\">Skrill account</a> by logging in and navigating to Settings > Developer Settings > Change secret word."], "maxRecurringAmount" => ["FriendlyName" => "Max Recurring Amount", "Type" => "text", "Size" => "10", "Description" => "<i>Optional</i> Defaults to order total. Define to override the maximum amount for future payments. Customer's will be asked to authorize this amount when performing an initial 1-Tap payment."], "noAccount" => ["Type" => "info", "Description" => "<div class=\"alert alert-info\" style=\"margin-bottom: 0;\">New to Skrill? <a href=\"https://go.whmcs.com/558/skrill-signup\" class=\"autoLinked alert-link\">Create an account</a></div>"]];

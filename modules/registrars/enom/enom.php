@@ -1,12 +1,5 @@
 <?php
-/*
- * @ https://EasyToYou.eu - IonCube v11 Decoder Online
- * @ PHP 7.2 & 7.3
- * @ Decoder version: 1.1.6
- * @ Release: 10/08/2022
- */
 
-// Decoded file for php version 72.
 function enom_getConfigArray()
 {
     $configArray = ["Description" => ["Type" => "System", "Value" => "Don't have an Enom Account yet? Get one here: <a href=\"http://go.whmcs.com/82/enom\" target=\"_blank\">www.whmcs.com/partners/enom</a>"], "Username" => ["Type" => "text", "Size" => "20", "Description" => "Enter your Enom Reseller Account Username here"], "Password" => ["FriendlyName" => "API Token", "Type" => "password", "Size" => "35", "Description" => "Don't have an API Token? <a href=\"https://www.enom.com/apitokens\" target=\"_blank\">Create one now</a>"], "TestMode" => ["FriendlyName" => "Enable Test Mode", "Type" => "yesno"], "DisableIRTP" => ["FriendlyName" => "Disable IRTP", "Type" => "yesno", "Description" => "Disable IRTP for the eNom Module. This will remove all notices in WHMCS relating to verification of contact information."], "DefaultNameservers" => ["FriendlyName" => "Use Default Nameservers", "Type" => "yesno", "Description" => "Check this box to use the default Enom nameservers for new domain registrations"]];

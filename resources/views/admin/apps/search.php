@@ -1,12 +1,5 @@
 <?php
-/*
- * @ https://EasyToYou.eu - IonCube v11 Decoder Online
- * @ PHP 7.2 & 7.3
- * @ Decoder version: 1.1.6
- * @ Release: 10/08/2022
- */
 
-// Decoded file for php version 72.
 echo "<div class=\"app-category-title\">\n    <h2>";
 echo AdminLang::trans("apps.searchResultsTitle");
 echo "</h2>\n    <p id=\"searchMatchesFound\" class=\"lead\" style=\"display: none\">\n        <span id=\"searchResultsCount\">0</span> ";

@@ -1,12 +1,5 @@
 <?php
-/*
- * @ https://EasyToYou.eu - IonCube v11 Decoder Online
- * @ PHP 7.2 & 7.3
- * @ Decoder version: 1.1.6
- * @ Release: 10/08/2022
- */
 
-// Decoded file for php version 72.
 echo "<div class=\"alert alert-success\" id=\"mailProviderSuccess\" style=\"display: none;\" role=\"alert\"></div>\n<div class=\"alert alert-danger admin-modal-error\" id=\"mailProviderError\" style=\"display: none;\" role=\"alert\"></div>\n<form class=\"form-horizontal\" id=\"frmMailProviderConfiguration\" name=\"frmMailProviderConfiguration\" method=\"post\" action=\"";
 echo routePath("admin-setup-mail-provider-save");
 echo "\">\n    ";

@@ -1,12 +1,5 @@
 <?php
-/*
- * @ https://EasyToYou.eu - IonCube v11 Decoder Online
- * @ PHP 7.2 & 7.3
- * @ Decoder version: 1.1.6
- * @ Release: 10/08/2022
- */
 
-// Decoded file for php version 72.
 echo "<div class=\"category-chooser visible-xs visible-sm\">\n    <select class=\"form-control\" id=\"inputCategoryDropdown\">\n        ";
 foreach ($categories->all() as $categoryDrop) {
     echo "            <option value=\"";

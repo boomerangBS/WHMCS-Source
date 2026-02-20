@@ -1,12 +1,5 @@
 <?php
-/*
- * @ https://EasyToYou.eu - IonCube v11 Decoder Online
- * @ PHP 7.2 & 7.3
- * @ Decoder version: 1.1.6
- * @ Release: 10/08/2022
- */
 
-// Decoded file for php version 72.
 function currencyUpdateRates(WHMCS\Scheduling\Task\TaskInterface $task = NULL)
 {
     $stuff = curlCall(WHMCS\Utility\CurrencyExchange::EXCHANGE_RATE_FEED_URL, ["CURLOPT_SSL_VERIFYPEER" => true, "CURLOPT_SSL_VERIFYHOST" => 2]);

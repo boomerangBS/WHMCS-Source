@@ -1,12 +1,5 @@
 <?php
-/*
- * @ https://EasyToYou.eu - IonCube v11 Decoder Online
- * @ PHP 7.2 & 7.3
- * @ Decoder version: 1.1.6
- * @ Release: 10/08/2022
- */
 
-// Decoded file for php version 72.
 namespace WHMCS\ApplicationLink\Storage;
 
 class Whmcs implements \OAuth2\Storage\AccessTokenInterface, \OAuth2\Storage\AuthorizationCodeInterface, \OAuth2\Storage\ClientCredentialsInterface, \OAuth2\OpenID\Storage\AuthorizationCodeInterface, \OAuth2\Storage\PublicKeyInterface, \OAuth2\Storage\ScopeInterface, \OAuth2\OpenID\Storage\UserClaimsInterface

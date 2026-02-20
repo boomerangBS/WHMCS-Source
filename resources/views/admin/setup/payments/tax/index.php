@@ -1,12 +1,5 @@
 <?php
-/*
- * @ https://EasyToYou.eu - IonCube v11 Decoder Online
- * @ PHP 7.2 & 7.3
- * @ Decoder version: 1.1.6
- * @ Release: 10/08/2022
- */
 
-// Decoded file for php version 72.
 $noRecords = AdminLang::trans("global.norecordsfound");
 echo "\n<form id=\"frmTaxSettings\" class=\"form-horizontal frm-tax-config\" name=\"frmTaxSettings\" method=\"post\" action=\"";
 echo routePath("admin-setup-payments-tax-settings");

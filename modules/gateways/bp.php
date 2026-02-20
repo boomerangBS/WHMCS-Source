@@ -1,12 +1,5 @@
 <?php
-/*
- * @ https://EasyToYou.eu - IonCube v11 Decoder Online
- * @ PHP 7.2 & 7.3
- * @ Decoder version: 1.1.6
- * @ Release: 10/08/2022
- */
 
-// Decoded file for php version 72.
 function bp_config(array $params = [])
 {
     $pairingKeyMsg = "<div class=\"alert alert-success\" style=\"margin:0;\">To link WHMCS with your BitPay account, you must login to your BitPay account and enter the following pairing code under <em>Payment Tools > Manage API Tokens</em>. Your Pairing Code is: <strong>" . WHMCS\Input\Sanitize::makeSafeForOutput($params["pairingCode"] ?? "") . "</strong></div>";

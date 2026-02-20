@@ -1,12 +1,5 @@
 <?php
-/*
- * @ https://EasyToYou.eu - IonCube v11 Decoder Online
- * @ PHP 7.2 & 7.3
- * @ Decoder version: 1.1.6
- * @ Release: 10/08/2022
- */
 
-// Decoded file for php version 72.
 echo "<form id=\"frmClientSearch\" method=\"post\" action=\"clients.php\">\n    <input id=\"status\" type=\"hidden\" name=\"status\" value=\"";
 echo $searchCriteria["status"];
 echo "\" />\n    <div class=\"search-bar\" id=\"search-bar\">\n        <div class=\"simple\">\n            <div class=\"search-icon\">\n                <div class=\"icon-wrapper\">\n                    <i class=\"fas fa-search\"></i>\n                </div>\n            </div>\n            <div class=\"search-fields\">\n                <div class=\"row\">\n                    <div class=\"col-xs-12 col-sm-4 col-md-3 col-lg-2\">\n                        <div class=\"form-group\">\n                            <label for=\"inputName\">\n                                ";

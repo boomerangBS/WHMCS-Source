@@ -1,12 +1,5 @@
 <?php
-/*
- * @ https://EasyToYou.eu - IonCube v11 Decoder Online
- * @ PHP 7.2 & 7.3
- * @ Decoder version: 1.1.6
- * @ Release: 10/08/2022
- */
 
-// Decoded file for php version 72.
 require "../init.php";
 if(!function_exists("imagecreatefrompng")) {
     exit("You need to recompile with the GD library included in PHP for this feature to be able to function");

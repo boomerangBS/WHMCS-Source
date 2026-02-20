@@ -1,12 +1,5 @@
 <?php
-/*
- * @ https://EasyToYou.eu - IonCube v11 Decoder Online
- * @ PHP 7.2 & 7.3
- * @ Decoder version: 1.1.6
- * @ Release: 10/08/2022
- */
 
-// Decoded file for php version 72.
 if(version_compare(PHP_VERSION, "7.0.0", ">=") && !function_exists("mysql_connect")) {
     include_once __DIR__ . DIRECTORY_SEPARATOR . "dbcompatfunctions.php";
 } else {

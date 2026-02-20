@@ -1,12 +1,5 @@
 <?php
-/*
- * @ https://EasyToYou.eu - IonCube v11 Decoder Online
- * @ PHP 7.2 & 7.3
- * @ Decoder version: 1.1.6
- * @ Release: 10/08/2022
- */
 
-// Decoded file for php version 72.
 echo "<a href=\"https://marketplace.whmcs.com/connect\" target=\"_blank\"><img src=\"../assets/img/marketconnect/logo.png\" class=\"marketconnect-logo\" id=\"marketconnectLogo\" alt=\"MarketConnect\"></a>\n<br><br>\n<p class=\"lead\">Connecting you with Value Added Services, Upsells and Additional Revenue Streams. <a href=\"https://marketplace.whmcs.com/connect\" target=\"_blank\">Learn more &raquo;</a></p>\n\n<div class=\"clearfix\"></div>\n\n";
 if($account["linked"] && $account["balance"] <= 0) {
     echo "    <div class=\"alert alert-info text-center\" style=\"border-radius:0;\">\n        Your balance is <strong>empty</strong>. Before you can provision services, you must first <a href=\"#\" class=\"alert-link deposit-funds\">Deposit Funds</a>\n    </div>\n";

@@ -1,12 +1,5 @@
 <?php
-/*
- * @ https://EasyToYou.eu - IonCube v11 Decoder Online
- * @ PHP 7.2 & 7.3
- * @ Decoder version: 1.1.6
- * @ Release: 10/08/2022
- */
 
-// Decoded file for php version 72.
 $this->layout("layouts/minimal");
 $this->start("body");
 echo "<p>The End User License Agreement displayed below provides information about\n  the terms of use for this software. You must review and agree to the license\n  terms before continuing to use WHMCS.</p>\n<textarea\n    id=\"eulaText\"\n    class=\"eula\"\n    rows=\"25\" readonly >\n";
