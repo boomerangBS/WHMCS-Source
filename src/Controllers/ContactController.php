@@ -1,0 +1,32 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Controllers;
+
+use Psr\Http\Message\ResponseInterface as Response;
+use Psr\Http\Message\ServerRequestInterface as Request;
+
+/**
+ * Handles the contact us form.
+ */
+class ContactController
+{
+    public function show(Request $request, Response $response): Response
+    {
+        ob_start();
+        include APP_ROOT . '/contact.php';
+        $html = (string) ob_get_clean();
+        $response->getBody()->write($html);
+        return $response;
+    }
+
+    public function submit(Request $request, Response $response): Response
+    {
+        ob_start();
+        include APP_ROOT . '/contact.php';
+        $html = (string) ob_get_clean();
+        $response->getBody()->write($html);
+        return $response;
+    }
+}

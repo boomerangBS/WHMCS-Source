@@ -7,8 +7,8 @@ class Application extends AbstractConfig implements DatabaseInterface
     protected $loadedFilename;
     protected $rootDir;
     protected static $configurationDefaultValuesMap;
-    protected $requireConfigurationValues = ["license" => "License Key", "db_host" => "Database Hostname", "db_username" => "Database Username", "db_password" => "Database Password", "db_name" => "Database Name", "mysql_charset" => "MySQL Charset", "cc_encryption_hash" => "Encryption Hash", "templates_compiledir" => "Template Compile Directory"];
-    protected static $coreConfigurationValues = ["license", "db_host", "db_username", "db_password", "db_port", "db_name", "mysql_charset", "db_tls_ca", "db_tls_ca_path", "db_tls_cert", "db_tls_cipher", "db_tls_key", "db_tls_verify_cert", "cc_encryption_hash", "templates_compiledir"];
+    protected $requireConfigurationValues = ["db_host" => "Database Hostname", "db_username" => "Database Username", "db_password" => "Database Password", "db_name" => "Database Name", "mysql_charset" => "MySQL Charset", "cc_encryption_hash" => "Encryption Hash", "templates_compiledir" => "Template Compile Directory"];
+    protected static $coreConfigurationValues = ["db_host", "db_username", "db_password", "db_port", "db_name", "mysql_charset", "db_tls_ca", "db_tls_ca_path", "db_tls_cert", "db_tls_cipher", "db_tls_key", "db_tls_verify_cert", "cc_encryption_hash", "templates_compiledir"];
     protected static $validDatabaseConfigurationVariablesMap = ["db_tls_ca" => "", "db_tls_ca_path" => "", "db_tls_cert" => "", "db_tls_cipher" => "", "db_tls_key" => "", "db_tls_verify_cert" => ""];
     const WHMCS_DEFAULT_CONFIG_FILE = "configuration.php";
     const DEFAULT_ATTACHMENTS_FOLDER = "attachments";

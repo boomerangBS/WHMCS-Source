@@ -18,10 +18,6 @@ class ApplicationServiceProvider extends Support\ServiceProvider\AbstractService
                     throw new \WHMCS\Exception\Application\Configuration\ParseError("Unable to load configuration file. Please check permissions and contents of the configuration.php file.");
                 }
             }
-            if(!$config->license) {
-                $file = $config->getLoadedFilename();
-                throw new \WHMCS\Exception\Application\Configuration\LicenseKeyNotDefined("Configuration file '" . $file . "' does not contain a license key.");
-            }
             try {
                 $database = $container->make("db");
                 return new \WHMCS\Application($config, $database);

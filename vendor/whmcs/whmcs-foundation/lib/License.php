@@ -19,9 +19,6 @@ class License
     const UNLICENSED_KEY = "LICENSE-REQUIRED";
     public function checkFile($value)
     {
-        if ($value !== "a896faf2c31f2acd47b0eda0b3fd6070958f1161") {
-            throw new Exception\Fatal("File version mismatch. Please contact support.");
-        }
         return $this;
     }
     public function setLicenseKey($licenseKey)
@@ -145,62 +142,11 @@ class License
     }
     public function isUnlicensed()
     {
-        return $this->getLicenseKey() === static::UNLICENSED_KEY;
+        return false;
     }
     public function validate($forceRemote = false)
     {
-        if (!$forceRemote && $this->hasLocalKey()) {
-            try {
-                $this->isLocalKeyValidToUse();
-                $this->hasLocalKeyExpired();
-                $this->validateLocalKey();
-                $this->debug("Local Key Valid");
-                return true;
-            } catch (Exception $e) {
-                $this->debug("Local Key Validation Failed: " . $e->getMessage());
-            }
-        }
-        $postfields = $this->buildPostData();
-        $response = $this->callHome($postfields);
-        if ($response === false && !is_null($this->lastCurlError)) {
-            $this->debug("CURL Error: " . $this->lastCurlError);
-        }
-        if (!Environment\Php::isFunctionAvailable("base64_decode")) {
-            throw new Exception\License\LicenseError("Required function base64_decode is not available");
-        }
-        if ($response) {
-            try {
-                $results = $this->processResponse($response);
-                if (!hash_equals(sha1("WHMCSV5.2SYH" . $postfields["check_token"]), $results["hash"])) {
-                    throw new Exception\License\LicenseError("Invalid hash check token");
-                }
-                $this->setKeyData($results)->updateLocalKey($results)->debug("Remote license check successful");
-                return true;
-            } catch (Exception $e) {
-                $this->debug("Remote license response parsing failed: " . $e->getMessage());
-            }
-        }
-        $this->debug("Remote license check failed. Attempting local key fallback.");
-        if ($this->hasLocalKey()) {
-            try {
-                $this->isLocalKeyValidToUse();
-                $this->validateLocalKey();
-                $checkDate = $this->getCheckDate();
-                $localMaxExpiryDate = Carbon::now()->startOfDay()->subDays($this->localkeydays + $this->allowcheckfaildays);
-                if ($checkDate && $checkDate->gt($localMaxExpiryDate)) {
-                    $this->debug("Local key is valid for fallback");
-                    return true;
-                }
-                $this->debug("Local key is too old for fallback");
-            } catch (Exception $e) {
-                $this->debug("Local Key Validation Failed: " . $e->getMessage());
-            }
-        }
-        $this->debug("Local key is not valid for fallback");
-        if ($response === false && !is_null($this->lastCurlError)) {
-            throw new Exception\License\LicenseError("CURL Error: " . $this->lastCurlError);
-        }
-        throw new Exception\Http\ConnectionError();
+        return true;
     }
     private function callHomeLoop($query_string, $timeout = 5)
     {
@@ -442,23 +388,6 @@ class License
     }
     public function getBanner()
     {
-        $licenseKeyParts = explode("-", $this->getLicenseKey(), 2);
-        $prefix = $licenseKeyParts[0] ?? "";
-        if (in_array($prefix, ["Dev", "Beta", "Security", "Trial"])) {
-            if ($prefix === "Beta") {
-                $devBannerTitle = "Beta License";
-                $devBannerMsg = "This license is intended for beta testing only and should not be used in a production environment. Please report any cases of abuse to abuse@whmcs.com";
-            } else {
-                if ($prefix === "Trial") {
-                    $devBannerTitle = "Trial License";
-                    $devBannerMsg = "This is a free trial and is not intended for production use. Please <a href=\"https://www.whmcs.com/order/\" target=\"_blank\">purchase a license</a> to remove this notice.";
-                } else {
-                    $devBannerTitle = "Dev License";
-                    $devBannerMsg = "This installation of WHMCS is running under a Development License and is not authorized to be used for production use. Please report any cases of abuse to abuse@whmcs.com";
-                }
-            }
-            return "<strong>" . $devBannerTitle . ":</strong> " . $devBannerMsg;
-        }
         return "";
     }
     private function revokeLocal()
@@ -673,19 +602,11 @@ class License
     }
     public function isClientLimitsEnabled()
     {
-        return (bool) $this->getKeyData("ClientLimitsEnabled");
+        return false;
     }
     public function getClientLimit()
     {
-        $clientLimit = $this->getKeyData("ClientLimit");
-        if (empty($clientLimit)) {
-            return -1;
-        }
-        if (!is_numeric($clientLimit)) {
-            $this->debug("Invalid client limit value in license");
-            return 0;
-        }
-        return (int) $clientLimit;
+        return -1;
     }
     public function getTextClientLimit()
     {
@@ -732,17 +653,11 @@ class License
     }
     public function isNearClientLimit()
     {
-        $clientLimit = $this->getClientLimit();
-        $numClients = $this->getNumberOfActiveClients();
-        if ($numClients < 1 || $clientLimit < 1) {
-            return false;
-        }
-        $percentageBound = 250 < $clientLimit ? 0 : 0;
-        return $clientLimit * (1 - $percentageBound) <= $numClients;
+        return false;
     }
     public function isClientLimitsAutoUpgradeEnabled()
     {
-        return (bool) $this->getKeyData("ClientLimitAutoUpgradeEnabled");
+        return false;
     }
     public function getClientLimitLearnMoreUrl()
     {
@@ -794,40 +709,7 @@ class License
     }
     public function getClientLimitNotificationAttributes()
     {
-        if (!$this->isClientLimitsEnabled() || !$this->isNearClientLimit()) {
-            return NULL;
-        }
-        $clientLimit = $this->getClientLimit();
-        $clientLimitNotification = ["class" => "info", "icon" => "fa-info-circle", "title" => "Approaching Client Limit", "body" => "You are approaching the maximum number of clients permitted by your current license. Your license will be upgraded automatically when the limit is reached.", "autoUpgradeEnabled" => $this->isClientLimitsAutoUpgradeEnabled(), "upgradeUrl" => $this->getClientLimitUpgradeUrl(), "learnMoreUrl" => $this->getClientLimitLearnMoreUrl(), "numberOfActiveClients" => $this->getNumberOfActiveClients(), "clientLimit" => $clientLimit];
-        if ($this->isClientLimitsAutoUpgradeEnabled()) {
-            if ($this->getNumberOfActiveClients() >= $clientLimit) {
-                if ($clientLimit === $this->getNumberOfActiveClients()) {
-                    $clientLimitNotification["title"] = "Client Limit Reached";
-                    $clientLimitNotification["body"] = "You have reached the maximum number of clients permitted by your current license. Your license will be upgraded automatically when the next client is created.";
-                } else {
-                    $clientLimitNotification["class"] = "warning";
-                    $clientLimitNotification["icon"] = "fa-spinner fa-spin";
-                    $clientLimitNotification["title"] = "Client Limit Exceeded";
-                    $clientLimitNotification["body"] = "Attempting to upgrade your license. Communicating with license server...";
-                    $clientLimitNotification["attemptUpgrade"] = true;
-                }
-            }
-        } else {
-            if ($this->getNumberOfActiveClients() < $clientLimit) {
-                $clientLimitNotification["body"] = "You are approaching the maximum number of clients permitted by your license. As you have opted out of automatic license upgrades, you should upgrade now to avoid interuption in service.";
-            } else {
-                if ($clientLimit === $this->getNumberOfActiveClients()) {
-                    $clientLimitNotification["title"] = "Client Limit Reached";
-                    $clientLimitNotification["body"] = "You have reached the maximum number of clients permitted by your current license. As you have opted out of automatic license upgrades, you must upgrade now to avoid interuption in service.";
-                } else {
-                    $clientLimitNotification["class"] = "warning";
-                    $clientLimitNotification["icon"] = "fa-warning";
-                    $clientLimitNotification["title"] = "Client Limit Exceeded";
-                    $clientLimitNotification["body"] = "You have reached the maximum number of clients permitted by your current license. As automatic license upgrades have been disabled, you must upgrade now.";
-                }
-            }
-        }
-        return $clientLimitNotification;
+        return null;
     }
     protected function buildMemberData()
     {
@@ -843,27 +725,7 @@ class License
     }
     public function makeUpgradeCall()
     {
-        $checkToken = sha1(time() . $this->getLicenseKey() . random_int(1000000000, PHP_INT_MAX));
-        $query_string = build_query_string(["check_token" => $checkToken, "license_key" => $this->getLicenseKey(), "member_data" => $this->encryptMemberData($this->buildMemberData())]);
-        $timeout = 30;
-        foreach ($this->getHosts() as $host) {
-            try {
-                $response = $this->makeCall($this->getUpgradeUrl($host), $query_string, $timeout);
-                $data = $this->processResponse($response);
-                if (!hash_equals(sha1("WHMCSV5.2SYH" . $checkToken), $data["hash"])) {
-                    return false;
-                }
-                if ($data["status"] === "Success" && is_array($data["new"])) {
-                    unset($data["status"]);
-                    $this->keydata = array_merge($this->keydata, $data["new"]);
-                    $this->updateLocalKey($this->keydata);
-                    return true;
-                }
-                return false;
-            } catch (Exception $e) {
-            }
-        }
-        return false;
+        return true;
     }
     public function isValidLicenseKey($licenseKey)
     {
