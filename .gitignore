@@ -1,0 +1,14 @@
+# Dependencies
+framework/vendor/
+
+# Environment
+.env
+
+# Cache
+var/
+.phpunit.cache/
+templates_c/
+
+# OS
+.DS_Store
+Thumbs.db
