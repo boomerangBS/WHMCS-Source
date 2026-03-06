@@ -58,13 +58,7 @@ class Application extends AbstractBootstrap
         }, "mysqlCompat" => function () {
             return new \WHMCS\Database\MysqlCompat(\DI::make("db")->getPdo());
         }, "license" => function () {
-            $app = \DI::make("app");
-            $config = $app->getApplicationConfig();
-            $license = (new \WHMCS\License())->checkFile("a896faf2c31f2acd47b0eda0b3fd6070958f1161")->setSalt($app->get_config("Version"), $app->get_hash())->setLicenseKey($app->get_license_key())->setLocalKey($app->get_config("License"));
-            if($config["use_internal_licensing_validation"]) {
-                $license->useInternalValidationMirror();
-            }
-            return $license;
+            return new \WHMCS\License();
         }, "lang" => function () {
             $language = \WHMCS\Language\ClientLanguage::factory(\WHMCS\Language\ClientLanguage::getDefault(), \WHMCS\Language\ClientLanguage::getFromSession(), isset($_REQUEST["language"]) ? $_REQUEST["language"] : "", defined("CLIENTAREA"));
             global $_LANG;

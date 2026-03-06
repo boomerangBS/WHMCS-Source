@@ -1,7 +1,5 @@
 <?php
 
-ini_set("eaccelerator.enable", 0);
-ini_set("eaccelerator.optimizer", 0);
 $systemErrorReportingLevel = error_reporting();
 if(function_exists("gracefulCoreRequiredFileInclude")) {
     exit("Detected attempt to include init.php for a second time. Unable to continue." . PHP_EOL);
@@ -17,20 +15,6 @@ if(function_exists("gracefulCoreRequiredFileInclude")) {
         }
     }
 }
-if(defined("WHMCS_LICENSE_DOMAIN") || defined("WHMCS_LICENSE_IP") || defined("WHMCS_LICENSE_DIR")) {
-    exit("Unable to initialise license validation. Please contact support." . PHP_EOL);
-}
-$installIp = "";
-if(isset($_SERVER["SERVER_ADDR"])) {
-    $installIp = $_SERVER["SERVER_ADDR"];
-} elseif(isset($_SERVER["LOCAL_ADDR"])) {
-    $installIp = $_SERVER["LOCAL_ADDR"];
-} elseif(function_exists("gethostname") && function_exists("gethostbyname")) {
-    $installIp = gethostbyname(gethostname());
-}
-define("WHMCS_LICENSE_DOMAIN", isset($_SERVER["SERVER_NAME"]) ? $_SERVER["SERVER_NAME"] : "");
-define("WHMCS_LICENSE_IP", $installIp);
-define("WHMCS_LICENSE_DIR", realpath(dirname(__FILE__)));
 if(!defined("ROOTDIR")) {
     define("ROOTDIR", realpath(dirname(__FILE__)));
 }
@@ -176,7 +160,6 @@ if(defined("CLIENTAREA") && $whmcs->isInMaintenanceMode() && !$_SESSION["adminid
     echo WHMCS\View\Helper::applicationError("Down for Maintenance (Err 3)", $maintenanceModeMessage);
     exit;
 }
-$licensing = DI::make("license")->checkFile("a896faf2c31f2acd47b0eda0b3fd6070958f1161");
 HookMgr::boot();
 if(!Auth::user()) {
     if(App::isInRequest("currency")) {

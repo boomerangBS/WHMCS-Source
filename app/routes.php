@@ -2,13 +2,17 @@
 
 declare(strict_types=1);
 
+use App\Controllers\AffiliateController;
 use App\Controllers\AnnouncementController;
 use App\Controllers\AuthController;
 use App\Controllers\CartController;
 use App\Controllers\ClientAreaController;
 use App\Controllers\ContactController;
+use App\Controllers\DocumentController;
 use App\Controllers\DomainController;
+use App\Controllers\InvoiceController;
 use App\Controllers\KnowledgebaseController;
+use App\Controllers\NetworkController;
 use App\Controllers\SupportController;
 use Slim\App;
 use Slim\Routing\RouteCollectorProxy;
@@ -46,22 +50,53 @@ return function (App $app): void {
     $app->post('/viewticket/{id}/{key}',   [SupportController::class, 'reply']);
 
     // ─── Knowledge Base ─────────────────────────────────────────────────────────
-    $app->get('/knowledgebase',           [KnowledgebaseController::class, 'index']);
-    $app->get('/knowledgebase/{id}/{slug}', [KnowledgebaseController::class, 'article']);
+    $app->get('/knowledgebase',              [KnowledgebaseController::class, 'index']);
+    $app->get('/knowledgebase/{id}/{slug}',  [KnowledgebaseController::class, 'article']);
 
     // ─── Announcements ──────────────────────────────────────────────────────────
-    $app->get('/announcements',       [AnnouncementController::class, 'index']);
-    $app->get('/announcements/{id}',  [AnnouncementController::class, 'show']);
+    $app->get('/announcements',      [AnnouncementController::class, 'index']);
+    $app->get('/announcements/{id}', [AnnouncementController::class, 'show']);
+    $app->get('/announcementsrss',   [NetworkController::class, 'announcementsRss']);
 
     // ─── Contact ────────────────────────────────────────────────────────────────
     $app->get('/contact',  [ContactController::class, 'show']);
     $app->post('/contact', [ContactController::class, 'submit']);
 
-    // ─── API group ──────────────────────────────────────────────────────────────
+    // ─── Invoices ───────────────────────────────────────────────────────────────
+    $app->get('/viewinvoice/{id}/{key}', [InvoiceController::class, 'view']);
+
+    // ─── Affiliates ─────────────────────────────────────────────────────────────
+    $app->get('/affiliates', [AffiliateController::class, 'index']);
+    $app->get('/aff',        [AffiliateController::class, 'link']);
+
+    // ─── Network / Status ───────────────────────────────────────────────────────
+    $app->get('/networkissues',    [NetworkController::class, 'issues']);
+    $app->get('/networkissuesrss', [NetworkController::class, 'issuesRss']);
+    $app->get('/serverstatus',     [NetworkController::class, 'serverStatus']);
+
+    // ─── Documents / Downloads / Email ──────────────────────────────────────────
+    $app->get('/viewquote/{id}/{key}',        [DocumentController::class, 'viewQuote']);
+    $app->get('/viewemail/{uid}/{eid}/{key}', [DocumentController::class, 'viewEmail']);
+    $app->get('/dl',                          [DocumentController::class, 'download']);
+    $app->get('/unsubscribe',                 [DocumentController::class, 'unsubscribe']);
+
+    // ─── API v1 ─────────────────────────────────────────────────────────────────
     $app->group('/api/v1', function (RouteCollectorProxy $group): void {
-        $group->post('/orders',   [CartController::class, 'apiCreateOrder']);
-        $group->get('/tickets',   [SupportController::class, 'apiList']);
-        $group->post('/tickets',  [SupportController::class, 'apiCreate']);
+        // Orders
+        $group->post('/orders', [CartController::class, 'apiCreateOrder']);
+
+        // Tickets
+        $group->get('/tickets',  [SupportController::class, 'apiList']);
+        $group->post('/tickets', [SupportController::class, 'apiCreate']);
+
+        // Domains
         $group->get('/domains/check', [DomainController::class, 'apiCheck']);
+
+        // Invoices
+        $group->get('/invoices',       [InvoiceController::class, 'apiList']);
+        $group->get('/invoices/{id}',  [InvoiceController::class, 'apiGet']);
+
+        // Affiliates
+        $group->get('/affiliates/stats', [AffiliateController::class, 'apiStats']);
     });
 };
