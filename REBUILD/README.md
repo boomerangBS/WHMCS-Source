@@ -43,7 +43,7 @@ CGO_ENABLED=1 go build -o whmcs-rebuild ./cmd/server/
 |----------|---------|-------------|
 | `SERVER_HOST` | `0.0.0.0` | Server bind address |
 | `SERVER_PORT` | `8080` | Server port |
-| `DB_DRIVER` | `sqlite` | Database driver |
+| `DB_DRIVER` | `sqlite3` | Database driver |
 | `DB_DSN` | `whmcs_rebuild.db` | Database connection string |
 | `JWT_SECRET` | (default) | **Change in production** |
 | `JWT_EXPIRATION_HOURS` | `24` | Token lifetime |

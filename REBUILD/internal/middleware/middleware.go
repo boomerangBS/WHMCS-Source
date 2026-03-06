@@ -191,6 +191,11 @@ func AdminOnly(next http.Handler) http.Handler {
 
 // ---------- Permission Check Middleware ----------
 
+// RequirePermission checks whether the authenticated user has the given
+// permission. Full Administrators (RoleID 1) always pass. For other roles,
+// a production system should look up the role's permission set in the
+// database and verify the required permission is present; non-admin roles
+// are currently denied by default for safety.
 func RequirePermission(permission string) func(http.Handler) http.Handler {
 	return func(next http.Handler) http.Handler {
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
@@ -199,11 +204,12 @@ func RequirePermission(permission string) func(http.Handler) http.Handler {
 				utils.ErrorJSON(w, http.StatusUnauthorized, "authentication required")
 				return
 			}
-			// Role ID 1 = Full Administrator, always has all permissions
+			// Role ID 1 = Full Administrator — always allowed
 			if claims.RoleID != 1 {
-				// In a full implementation, look up role permissions from DB
-				// For now, only full admins bypass permission checks
-				_ = permission
+				// Non-admin roles are denied by default until a full
+				// permission lookup (role → permissions DB table) is wired.
+				utils.ErrorJSON(w, http.StatusForbidden, "permission denied: "+permission)
+				return
 			}
 			next.ServeHTTP(w, r)
 		})

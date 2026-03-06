@@ -481,7 +481,7 @@ func (s *OrderService) CreateOrder(input CreateOrderInput, adminID int64) (*mode
 		Items:         items,
 	}, adminID, input.IPAddress)
 	if err == nil && inv != nil {
-		s.OrderRepo.DB.Exec(`UPDATE orders SET invoice_id = ? WHERE id = ?`, inv.ID, orderID)
+		s.OrderRepo.UpdateInvoiceID(orderID, inv.ID)
 	}
 
 	s.LogRepo.Create(&models.ActivityLog{AdminID: adminID, ClientID: input.ClientID, Description: fmt.Sprintf("New order #%s placed for %s", order.OrderNumber, product.Name), IPAddress: input.IPAddress})
@@ -503,7 +503,7 @@ func (s *OrderService) AcceptOrder(orderID int64, adminID int64, ip string) erro
 	}
 
 	// Activate associated services
-	s.OrderRepo.DB.Exec(`UPDATE client_services SET status = 'active', updated_at = CURRENT_TIMESTAMP WHERE order_id = ?`, orderID)
+	s.ServiceRepo.UpdateStatusByOrderID(orderID, "active")
 
 	s.LogRepo.Create(&models.ActivityLog{AdminID: adminID, ClientID: order.ClientID, Description: fmt.Sprintf("Order #%s accepted", order.OrderNumber), IPAddress: ip})
 	return nil
@@ -519,7 +519,7 @@ func (s *OrderService) CancelOrder(orderID int64, adminID int64, ip string) erro
 		return err
 	}
 
-	s.OrderRepo.DB.Exec(`UPDATE client_services SET status = 'cancelled', updated_at = CURRENT_TIMESTAMP WHERE order_id = ?`, orderID)
+	s.ServiceRepo.UpdateStatusByOrderID(orderID, "cancelled")
 
 	s.LogRepo.Create(&models.ActivityLog{AdminID: adminID, ClientID: order.ClientID, Description: fmt.Sprintf("Order #%s cancelled", order.OrderNumber), IPAddress: ip})
 	return nil

@@ -455,6 +455,11 @@ func (r *OrderRepo) UpdateStatus(id int64, status string) error {
 	return err
 }
 
+func (r *OrderRepo) UpdateInvoiceID(orderID, invoiceID int64) error {
+	_, err := r.DB.Exec(`UPDATE orders SET invoice_id = ? WHERE id = ?`, invoiceID, orderID)
+	return err
+}
+
 func (r *OrderRepo) ListAll(page, perPage int, status string) ([]models.Order, int64, error) {
 	var total int64
 	query := `FROM orders WHERE 1=1`
@@ -695,6 +700,11 @@ func (r *ServiceRepo) Create(s *models.ClientService) (int64, error) {
 
 func (r *ServiceRepo) UpdateStatus(id int64, status, reason string) error {
 	_, err := r.DB.Exec(`UPDATE client_services SET status = ?, suspend_reason = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?`, status, reason, id)
+	return err
+}
+
+func (r *ServiceRepo) UpdateStatusByOrderID(orderID int64, status string) error {
+	_, err := r.DB.Exec(`UPDATE client_services SET status = ?, updated_at = CURRENT_TIMESTAMP WHERE order_id = ?`, status, orderID)
 	return err
 }
 
